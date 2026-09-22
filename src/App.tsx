@@ -1,77 +1,29 @@
-import MainLayout from './app/layout/MainLayout';
+import Header from './components/Header/Header';
+import Sidebar from './components/Sidebar/Sidebar';
+import MapContainer from './components/Map/MapContainer';
+import PropertyPanel from './components/Property/PropertyPanel';
 
 function App() {
     return (
-        <MainLayout>
-            <div className="h-100 d-flex">
-                <aside className="border-end bg-light p-3" style={{ width: '320px' }}>
-                    <h6>ابزارها</h6>
+        <div className="app">
+            <Header />
 
-                    <div className="mb-3">
-                        <label className="form-label">
-                            کد نوسازی
-                        </label>
+            <div className="app-content">
+                <Sidebar />
 
-                        <div className="input-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="کد نوسازی"
-                            />
-                            <button className="btn btn-primary">
-                                جستجو
-                            </button>
-                        </div>
-                    </div>
+                <main className="app-map">
+                    <MapContainer />
+                </main>
 
-                    <hr />
-
-                    <h6>لایه‌ها</h6>
-
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="melkLayer"
-                            defaultChecked
-                        />
-                        <label className="form-check-label" htmlFor="melkLayer">
-                            عرصه
-                        </label>
-                    </div>
-
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="eayanLayer"
-                            defaultChecked
-                        />
-                        <label className="form-check-label" htmlFor="eayanLayer">
-                            اعیان
-                        </label>
-                    </div>
-
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="tarhLayer"
-                            defaultChecked
-                        />
-                        <label className="form-check-label" htmlFor="tarhLayer">
-                            طرح تفصیلی
-                        </label>
-                    </div>
-                </aside>
-
-                <section className="flex-grow-1 bg-secondary d-flex align-items-center justify-content-center">
-                    <span className="text-white">
-                        Map will be here
-                    </span>
-                </section>
+                <PropertyPanel />
             </div>
-        </MainLayout>
+
+            <footer className="app-statusbar">
+                <span>مختصات: ---</span>
+                <span>مقیاس: ---</span>
+                <span>وضعیت: آماده</span>
+            </footer>
+        </div>
     );
 }
 
