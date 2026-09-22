@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
+import { mapConfig } from '../../config/mapConfig'
 
 
 export default function MapContainer() {
@@ -11,14 +12,14 @@ export default function MapContainer() {
             return;
         }
         const map = new Map({
-            basemap: 'osm',
+            basemap: mapConfig.basemap,
         });
 
         const view = new MapView({
             container: mapDiv.current,
             map,
-            center: [46.17, 37.39],
-            zoom: 13,
+            center: mapConfig.center,
+            zoom: mapConfig.zoom,
         });
 
         return () => {
@@ -26,11 +27,6 @@ export default function MapContainer() {
         };
     },[]);    
 
-	return (
-        <div className="map-container">
-            <div className="map-placeholder">
-                Map
-            </div>
-        </div>
-	);
+    return <div ref={mapDiv} className="map-container" />;
+
 }
