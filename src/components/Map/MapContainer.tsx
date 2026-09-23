@@ -1,10 +1,24 @@
 import { useEffect, useRef } from 'react';
+
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+
 import { mapConfig } from '../../config/mapConfig'
 
+interface LayerVisibility {
+    gozarbandi: boolean,
+    melk: boolean,
+    mahdodeh: boolean
+}
 
-export default function MapContainer() {
+interface MapContainerProps {
+    layerVisibility: LayerVisibility;
+}
+
+export default function MapContainer({
+    layerVisibility,
+}: MapContainerProps) {
     const mapDiv = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
