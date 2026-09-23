@@ -86,6 +86,18 @@ export default function MapContainer({
             zoom: mapConfig.zoom,
         });
 
+        const zoomToLayer = async () => {
+            try {
+                await mahdodehShahrFL.when();
+                if (mahdodehShahrFL.fullExtent) {
+                    await view.goTo(mahdodehShahrFL.fullExtent);
+                }
+            } catch (err) {
+                console.error('Failed to zoom to parcel extent:', err);
+            }
+        }
+        zoomToLayer();
+
         return () => {
             view.destroy();
             mapRef.current = null;
