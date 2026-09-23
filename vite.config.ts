@@ -10,3 +10,5 @@ export default defineConfig({
   },
   plugins: [react()],
 })
+
+/// <reference types="@arcgis/map-components/types/react" />
