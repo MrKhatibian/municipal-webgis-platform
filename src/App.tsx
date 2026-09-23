@@ -7,9 +7,9 @@ import PropertyPanel from './components/Property/PropertyPanel';
 
 function App() {
     const [layerVisibility, setLayerVisibility] = useState({
+        arse: true,
         gozarbandi: true,
-        melk: true,
-        mahdodeh: true
+        mahdodehShahr: true
     });
 
     return (

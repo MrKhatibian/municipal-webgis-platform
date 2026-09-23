@@ -7,9 +7,9 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 import { mapConfig } from '../../config/mapConfig'
 
 interface LayerVisibility {
+    arse: boolean,
     gozarbandi: boolean,
-    melk: boolean,
-    mahdodeh: boolean
+    mahdodehShahr: boolean
 }
 
 interface MapContainerProps {
@@ -35,6 +35,24 @@ export default function MapContainer({
             center: mapConfig.center,
             zoom: mapConfig.zoom,
         });
+
+        const arse = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mapConfig.featureServiceId.arse}`,
+            title: "عرصه",
+            visible: layerVisibility.arse
+        });
+        const gozarbandi = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mapConfig.featureServiceId.gozarbandi}`,
+            title: "گذر بندی",
+            visible: layerVisibility.gozarbandi
+        });
+        const mahdodehShahr = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mapConfig.featureServiceId.mahdodehShahr}`,
+            title: "محدوده شهر",
+            visible: layerVisibility.mahdodehShahr
+        });
+
+        map.addMany([arse, gozarbandi, mahdodehShahr]);
 
         return () => {
             view.destroy();
