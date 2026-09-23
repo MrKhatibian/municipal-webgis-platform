@@ -25,17 +25,7 @@ export default function MapContainer({
     useEffect(() => {
         if (!mapDiv.current) {
             return;
-        }
-        const map = new Map({
-            basemap: mapConfig.basemap,
-        });
-
-        const view = new MapView({
-            container: mapDiv.current,
-            map,
-            center: mapConfig.center,
-            zoom: mapConfig.zoom,
-        });
+        }        
 
         const arseML = new MapImageLayer({
             url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.arse}`,
@@ -69,8 +59,22 @@ export default function MapContainer({
             visible: layerVisibility.mahdodehShahr
         });
 
+        const map = new Map({
+            basemap: mapConfig.basemap,
+            layers: [
+                mahdodehShahrFL,
+                arseFL,
+                gozarbandiFL
+            ]
+        });
+        //map.addMany([arseFL, gozarbandiFL, mahdodehShahrFL]);
 
-        map.addMany([arseFL, gozarbandiFL, mahdodehShahrFL]);
+        const view = new MapView({
+            container: mapDiv.current,
+            map,
+            center: mapConfig.center,
+            zoom: mapConfig.zoom,
+        });
 
         return () => {
             view.destroy();
