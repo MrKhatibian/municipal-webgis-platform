@@ -20,7 +20,7 @@ function App() {
                 <Sidebar />
 
                 <main className="app-map">
-                    <MapContainer />
+                    <MapContainer layerVisibility = {layerVisibility} />
                 </main>
 
                 <PropertyPanel />
