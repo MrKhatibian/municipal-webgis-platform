@@ -4,7 +4,7 @@ interface LayerVisibility {
     mahdodehShahr: boolean;
 }
 
-interface LayerControlProp {
+interface LayerControlProps {
     layerVisibility: LayerVisibility;
     onLayerVisibilityChange: (
         layer: keyof LayerVisibility,
@@ -14,7 +14,7 @@ interface LayerControlProp {
 
 export default function LayerControl({
     layerVisibility, onLayerVisibilityChange
-}: LayerControlProp) {
+}: LayerControlProps) {
     return (
         <div>
             <div className="fw-semibold mb-2">

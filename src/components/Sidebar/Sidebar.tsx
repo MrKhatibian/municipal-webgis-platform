@@ -1,7 +1,23 @@
 import PropertySearch from '../Search/PropertySearch';
 import LayerControl from '../Layers/LayerControl';
 
-export default function Sidebar() {
+interface LayerVisibility {
+    arse: boolean;
+    gozarbandi: boolean;
+    mahdodehShahr: boolean;
+}
+
+interface SidebarProps {
+    layerVisibility: LayerVisibility;
+    onLayerVisibilityChange: (
+        layer: keyof LayerVisibility,
+        visible: boolean
+    ) => void
+}
+
+export default function Sidebar({
+    layerVisibility, onLayerVisibilityChange
+}: SidebarProps) {
 	return (
         <aside className="app-sidebar">
             <div className="p-3">
@@ -9,7 +25,10 @@ export default function Sidebar() {
 
                 <hr />
 
-                <LayerControl />
+                <LayerControl
+                    layerVisibility={layerVisibility}
+                    onLayerVisibilityChange={onLayerVisibilityChange}
+                />
 
                 <hr />
 
