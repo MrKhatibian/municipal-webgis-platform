@@ -5,7 +5,7 @@ import MapView from '@arcgis/core/views/MapView';
 import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 
-import { mapConfig } from '../../config/mapConfig'
+import { mapConfig } from '../../config/mapConfig';
 
 interface LayerVisibility {
     arse: boolean,
@@ -21,6 +21,11 @@ export default function MapContainer({
     layerVisibility,
 }: MapContainerProps) {
     const mapDiv = useRef<HTMLDivElement>(null);
+
+    const mapRef = useRef<Map | null>(null);
+    const arseFLayerRef = useRef<FeatureLayer | null>(null);
+    const gozarbandiFlayerRef = useRef<FeatureLayer | null>(null);
+    const mahdodehShahrFlayerRef = useRef<FeatureLayer | null>(null);
 
     useEffect(() => {
         if (!mapDiv.current) {
@@ -59,6 +64,10 @@ export default function MapContainer({
             visible: layerVisibility.mahdodehShahr
         });
 
+        arseFLayerRef.current = arseFL;
+        gozarbandiFlayerRef.current = gozarbandiFL;
+        mahdodehShahrFlayerRef.current = mahdodehShahrFL;
+
         const map = new Map({
             basemap: mapConfig.basemap,
             layers: [
@@ -68,6 +77,7 @@ export default function MapContainer({
             ]
         });
         //map.addMany([arseFL, gozarbandiFL, mahdodehShahrFL]);
+        mapRef.current = map;
 
         const view = new MapView({
             container: mapDiv.current,
@@ -78,8 +88,24 @@ export default function MapContainer({
 
         return () => {
             view.destroy();
+            mapRef.current = null;
+            arseFLayerRef.current = null;
+            gozarbandiFlayerRef.current = null;
+            mahdodehShahrFlayerRef.current = null;
         };
-    },[]);    
+    }, []);    
+
+    useEffect(() => {
+        if (arseFLayerRef.current) {
+            arseFLayerRef.current.visible = layerVisibility.arse;
+        }
+        if (gozarbandiFlayerRef.current) {
+            gozarbandiFlayerRef.current.visible = layerVisibility.gozarbandi;
+        }
+        if (mahdodehShahrFlayerRef.current) {
+            mahdodehShahrFlayerRef.current.visible = layerVisibility.mahdodehShahr;
+        }
+    }, [layerVisibility]);
 
     return <div ref={mapDiv} className="map-container" />;
 
