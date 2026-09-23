@@ -1,4 +1,20 @@
-export default function LayerControl() {
+interface LayerVisibility {
+    arse: boolean;
+    gozarbandi: boolean;
+    mahdodehShahr: boolean;
+}
+
+interface LayerControlProp {
+    layerVisibility: LayerVisibility;
+    onLayerVisibilityChange: (
+        layer: keyof LayerVisibility,
+        visible: boolean
+    ) => void;
+}
+
+export default function LayerControl({
+    layerVisibility, onLayerVisibilityChange
+}: LayerControlProp) {
     return (
         <div>
             <div className="fw-semibold mb-2">
@@ -10,7 +26,10 @@ export default function LayerControl() {
                     className="form-check-input"
                     type="checkbox"
                     id="layer-melk"
-                    defaultChecked
+                    checked={layerVisibility.arse}
+                    onChange={(event) => onLayerVisibilityChange(
+                        'arse', event.target.checked
+                    )}
                 />
                 <label className="form-check-label" htmlFor="layer-melk">
                     عرصه
@@ -22,10 +41,13 @@ export default function LayerControl() {
                     className="form-check-input"
                     type="checkbox"
                     id="layer-eayan"
-                    defaultChecked
+                    checked={layerVisibility.gozarbandi}
+                    onChange={(event) => onLayerVisibilityChange(
+                        'gozarbandi', event.target.checked
+                    )}
                 />
                 <label className="form-check-label" htmlFor="layer-eayan">
-                    اعیان
+                    گذر بندی
                 </label>
             </div>
 
@@ -34,10 +56,13 @@ export default function LayerControl() {
                     className="form-check-input"
                     type="checkbox"
                     id="layer-tarh"
-                    defaultChecked
+                    checked={layerVisibility.mahdodehShahr}
+                    onChange={(event) => onLayerVisibilityChange(
+                        'mahdodehShahr', event.target.checked
+                    )}
                 />
                 <label className="form-check-label" htmlFor="layer-tarh">
-                    طرح تفصیلی
+                    محدوده شهر
                 </label>
             </div>
         </div>
