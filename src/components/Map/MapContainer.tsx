@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react';
 
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 
 import { mapConfig } from '../../config/mapConfig'
 
@@ -36,23 +37,40 @@ export default function MapContainer({
             zoom: mapConfig.zoom,
         });
 
-        const arse = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.featureServiceId.arse}`,
+        const arseML = new MapImageLayer({
+            url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.arse}`,
             title: "عرصه",
             visible: layerVisibility.arse
         });
-        const gozarbandi = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.featureServiceId.gozarbandi}`,
+        const gozarbandiML = new MapImageLayer({
+            url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.gozarbandi}`,
             title: "گذر بندی",
             visible: layerVisibility.gozarbandi
         });
-        const mahdodehShahr = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.featureServiceId.mahdodehShahr}`,
+        const mahdodehShahrML = new MapImageLayer({
+            url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.mahdodehShahr}`,
             title: "محدوده شهر",
             visible: layerVisibility.mahdodehShahr
         });
 
-        map.addMany([arse, gozarbandi, mahdodehShahr]);
+        const arseFL = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mapConfig.serviceId.arse}`,
+            title: "عرصه",
+            visible: layerVisibility.arse
+        });
+        const gozarbandiFL = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mapConfig.serviceId.gozarbandi}`,
+            title: "گذر بندی",
+            visible: layerVisibility.gozarbandi
+        });
+        const mahdodehShahrFL = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mapConfig.serviceId.mahdodehShahr}`,
+            title: "محدوده شهر",
+            visible: layerVisibility.mahdodehShahr
+        });
+
+
+        map.addMany([arseFL, gozarbandiFL, mahdodehShahrFL]);
 
         return () => {
             view.destroy();
