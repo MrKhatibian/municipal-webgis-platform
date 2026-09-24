@@ -1,22 +1,27 @@
 import PropertySearch from '../Search/PropertySearch';
 import LayerControl from '../Layers/LayerControl';
+import type MapView from '@arcgis/core/views/MapView';
 
-interface LayerVisibility {
-    arse: boolean;
-    gozarbandi: boolean;
-    mahdodehShahr: boolean;
-}
+// interface LayerVisibility {
+//     arse: boolean;
+//     gozarbandi: boolean;
+//     mahdodehShahr: boolean;
+// }
 
+// interface SidebarProps {
+//     layerVisibility: LayerVisibility;
+//     onLayerVisibilityChange: (
+//         layer: keyof LayerVisibility,
+//         visible: boolean
+//     ) => void
+// }
 interface SidebarProps {
-    layerVisibility: LayerVisibility;
-    onLayerVisibilityChange: (
-        layer: keyof LayerVisibility,
-        visible: boolean
-    ) => void
+    mapView: MapView | null;
 }
 
 export default function Sidebar({
-    layerVisibility, onLayerVisibilityChange
+    // layerVisibility, onLayerVisibilityChange
+    mapView
 }: SidebarProps) {
 	return (
         <aside className="app-sidebar">
@@ -25,10 +30,11 @@ export default function Sidebar({
 
                 <hr />
 
-                <LayerControl
+                {/* <LayerControl
                     layerVisibility={layerVisibility}
                     onLayerVisibilityChange={onLayerVisibilityChange}
-                />
+                /> */}
+                <LayerControl mapView={mapView} />
 
                 <hr />
 

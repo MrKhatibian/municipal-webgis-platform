@@ -1,10 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import '@arcgis/core/assets/esri/themes/light/main.css'
-import '@arcgis/map-components/components/arcgis-layer-list'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import '@arcgis/core/assets/esri/themes/light/main.css';
+import '@arcgis/map-components/components/arcgis-layer-list';
+import 'bootstrap/dist/css/bootstrap.rtl.min.css';
+import './index.css';
+import App from './App.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
