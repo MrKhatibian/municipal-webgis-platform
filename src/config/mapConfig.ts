@@ -9,7 +9,7 @@ export const mapConfig = {
     featureServiceId: {
     serviceId: {
         arse: 1,
-        gozarbandi: 0,
+        gozarbandi: 2,
         mahdodehShahr: 5
     }
 }
