@@ -2,12 +2,15 @@ import type { ReactNode } from 'react';
 
 interface MainLayoutProp {
     children: ReactNode;
+    sidebarCollapsed: boolean;
 }
 
-export default function MainLayout({ children }: MainLayoutProp) {
+export default function MainLayout({
+    children, sidebarCollapsed
+}: MainLayoutProp) {
 	return (
         <div className="vh-100 d-flex flex-column">
-            <header className="border-bottom bg-white">
+            {/* <header className="app-header">
                 <div className="container-fluid">
                     <div className="d-flex align-items-center justify-content-between py-2">
                         <div className="fw-bold">
@@ -19,9 +22,10 @@ export default function MainLayout({ children }: MainLayoutProp) {
                         </div>
                     </div>
                 </div>
-            </header>
+            </header> */}
 
-            <main className="flex-grow-1 overflow-hidden">
+            <main className={`app-shell ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+            {/* <main className={`flex-grow-1 overflow-hidden ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}> */}
                 {children}
             </main>
 

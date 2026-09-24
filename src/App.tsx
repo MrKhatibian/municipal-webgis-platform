@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import MainLayout from './app/layout/MainLayout';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import MapContainer from './components/Map/MapContainer';
@@ -32,17 +33,24 @@ function App() {
     // };
 
     const [mapView, setMapView] = useState<MapView | null>(null);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
     return (
-        <div className="app">
-            <Header />
+        <MainLayout sidebarCollapsed={sidebarCollapsed}>
+            <Header
+                sidebarCollapsed={sidebarCollapsed}
+                onToggleSidebar={() => setSidebarCollapsed((current) => !current)}
+            />
 
             <div className="app-content">
                 {/* <Sidebar
                     layerVisibility={layerVisibility}
                     onLayerVisibilityChange={handleLayerVisibilityChange}
                 /> */}
-                <Sidebar mapView={mapView} />
+                <Sidebar
+                    mapView={mapView}
+                    collapsed={sidebarCollapsed}
+                />
 
                 <main className="app-map">
                     {/* <MapContainer layerVisibility={layerVisibility} /> */}
@@ -52,12 +60,12 @@ function App() {
                 <PropertyPanel />
             </div>
 
-            <footer className="app-statusbar">
+            {/*<footer className="app-statusbar">
                 <span>مختصات: ---</span>
                 <span>مقیاس: ---</span>
                 <span>وضعیت: آماده</span>
-            </footer>
-        </div>
+            </footer>*/}
+        </MainLayout>                            
     );
 }
 
