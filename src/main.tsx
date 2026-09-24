@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import '@arcgis/core/assets/esri/themes/light/main.css';
 import '@arcgis/map-components/components/arcgis-layer-list';
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
+import '@fontsource-variable/vazirmatn';
+import '@fontsource-variable/vazirmatn/wght.css';
 import './index.css';
 import App from './App.tsx';
 
