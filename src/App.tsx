@@ -35,11 +35,15 @@ function App() {
     const [mapView, setMapView] = useState<MapView | null>(null);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+    const handleToggleSidebar = () => {
+        setSidebarCollapsed((current) => !current);
+    }
+
     return (
         <MainLayout sidebarCollapsed={sidebarCollapsed}>
             <Header
                 sidebarCollapsed={sidebarCollapsed}
-                onToggleSidebar={() => setSidebarCollapsed((current) => !current)}
+                onToggleSidebar={handleToggleSidebar}
             />
 
             <div className="app-content">
@@ -50,6 +54,7 @@ function App() {
                 <Sidebar
                     mapView={mapView}
                     collapsed={sidebarCollapsed}
+                    onToggleSidebar={handleToggleSidebar}
                 />
 
                 <main className="app-map">

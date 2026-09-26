@@ -9,6 +9,16 @@ export default function Header({
     return (
         <header className="app-header">
             <div className="app-brand">
+                <button
+                    type="button"
+                    className="mobile-sidebar-toggle"
+                    onClick={onToggleSidebar}
+                    title={sidebarCollapsed ? 'باز کردن منو' : 'بستن منو'}
+                    aria-label={sidebarCollapsed ? 'باز کردن منو' : 'بستن منو'}
+                >
+                    <span>{sidebarCollapsed ? "»" : "«"}</span>
+                </button>
+
                 <div className="municipality-logo">
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                         <path d="M24 4 5 17v27h38V17L24 4Zm0 5 13 9H11l13-9Zm-8 14h5v15h-5V23Zm11 0h5v15h-5V23Z" />
@@ -19,19 +29,7 @@ export default function Header({
                     <strong>شهرداری مراغه</strong>
                     <span>سامانه اطلاعات مکانی شهری</span>
                 </div>
-            </div>
-
-            <div className="app-header-actions">
-                <button
-                    type="button"
-                    className="sidebar-toggle"
-                    onClick={onToggleSidebar}
-                    title={sidebarCollapsed ? 'باز کردن منو' : 'بستن منو'}
-                    aria-label={sidebarCollapsed ? 'باز کردن منو' : 'بستن منو'}
-                >
-                    <span className="toggle-icon">☰</span>
-                </button>
-            </div>
+            </div>            
         </header>
     );
 }

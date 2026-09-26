@@ -43,7 +43,13 @@ textarea {
 }
 
 .app-header {
+    
+}
+.app-header {
     position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;    
     inset: 0 0 auto 0;
     height: var(--header-height);
     z-index: 100;
@@ -102,7 +108,7 @@ textarea {
     align-items: center;
 }
 
-.sidebar-toggle {
+/*.sidebar-toggle {
     width: 40px;
     height: 40px;
     border: 1px solid #e2e8f0;
@@ -118,6 +124,88 @@ textarea {
         border-color: #cbd5e1;
         color: #0f4c5c;
     }
+*/
+
+.sidebar-edge-toggle {
+    position: absolute;
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 48px;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid #dbe3ea;
+    border-radius: 10px 0 0 10px;
+    background: #ffffff;
+    color: #475569;
+    box-shadow: -2px 2px 8px rgba(15, 23, 42, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .sidebar-edge-toggle:hover {
+        color: #0f4c5c;
+        background: #f8fafc;
+    }
+
+    .sidebar-edge-toggle span {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+.mobile-sidebar-toggle {
+    display: none;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+    .mobile-sidebar-toggle:hover {
+        background: #f8fafc;
+        color: #0f4c5c;
+    }
+
+    .mobile-sidebar-toggle span {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+@media (max-width: 768px) {
+    .sidebar-edge-toggle {
+        display: none;
+    }
+
+    .mobile-sidebar-toggle {
+        display: flex;
+    }
+
+    .app-sidebar {
+        width: 290px;
+    }
+
+        .app-sidebar.collapsed {
+            width: 0;
+            border: 0;
+            box-shadow: none;
+        }
+
+    .map-container,
+    .sidebar-collapsed .map-container {
+        right: 0;
+    }
+}
 
 .toggle-icon {
     font-size: 20px;

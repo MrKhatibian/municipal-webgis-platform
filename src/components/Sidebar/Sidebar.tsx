@@ -18,14 +18,25 @@ import type MapView from '@arcgis/core/views/MapView';
 interface SidebarProps {
     mapView: MapView | null;
     collapsed: boolean;
+    onToggleSidebar: () => void;
 }
 
 export default function Sidebar({
     // layerVisibility, onLayerVisibilityChange
-    mapView, collapsed
+    mapView, collapsed, onToggleSidebar
 }: SidebarProps) {
     return (
-        <aside className={`app-sidebar ${collapsed ? 'collapsed' : ''}`}>
+        <aside className={`app-sidebar ${collapsed ? 'collapsed' : ''}`}>            
+            <button
+                type="button"
+                className="sidebar-edge-toggle"
+                onClick={onToggleSidebar}
+                title={collapsed ? 'باز کردن منو' : 'بستن منو'}
+                aria-label={collapsed ? 'باز کردن منو' : 'بستن منو'}
+            >
+                <span>{collapsed ? "»" : "«"}</span>
+            </button>
+                
             <div className="p-3">
                 <PropertySearch />
 
