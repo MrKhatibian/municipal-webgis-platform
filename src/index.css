@@ -128,8 +128,8 @@ textarea {
 
 .sidebar-edge-toggle {
     position: absolute;
-    top: 50%;
-    left: -16px;
+    top: 95%;
+    left: -10px;
     transform: translateY(-50%);
     width: 32px;
     height: 48px;
