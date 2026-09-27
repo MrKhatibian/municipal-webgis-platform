@@ -4,6 +4,7 @@ import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 //import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import Graphic from '@arcgis/core/Graphic'; 
 
 import { mapConfig } from '../../config/mapConfig';
 
@@ -16,11 +17,12 @@ import { mapConfig } from '../../config/mapConfig';
 interface MapContainerProps {
     // layerVisibility: LayerVisibility;
     onViewReady: (view: MapView) => void;
+    onPropertySelected: (graphic: Graphic | null) => void;
 }
 
 export default function MapContainer({
     //layerVisibility,
-    onViewReady
+    onViewReady, onPropertySelected
 }: MapContainerProps) {
     const mapDiv = useRef<HTMLDivElement>(null);
 
@@ -90,6 +92,27 @@ export default function MapContainer({
 
         onViewReady(view);
 
+        view.popupEnabled = false;
+        const clickHandle = view.on('click', async (event) => {
+            try {
+                const response = await view.hitTest((event), {
+                    include: arseFL,
+                });
+                const featureResult = response.results.find(
+                    (result) => result.type === 'graphic'
+                );
+                if (!featureResult || !('graphic' in featureResult)) {
+                    onPropertySelected(null);
+                    return
+                }                
+                onPropertySelected(featureResult.graphic);
+            } catch (err) {
+                console.error("Identify failed", err);
+                onPropertySelected(null);
+            }
+        });
+
+
         const zoomToLayer = async () => {
             try {
                 await mahdodehShahrFL.when();
@@ -101,8 +124,9 @@ export default function MapContainer({
             }
         }
         zoomToLayer();
-
+        
         return () => {
+            clickHandle.remove();
             view.destroy();
             mapRef.current = null;
             // arseFLayerRef.current = null;

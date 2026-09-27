@@ -1,65 +1,63 @@
+import Graphic from '@arcgis/core/Graphic';
+
 interface PropertyPanelProps{
     visible?: boolean;
+    property: Graphic | null;
 }
 
 export default function PropertyPanel({
-    visible = false,
+    visible = false, property
 }: PropertyPanelProps) {
     if (!visible) {
         return null;
     }
 
+    if (!property) {
+        return null;
+    }
+    console.log(property.attributes);
+    const attributes = property.attributes;
+
     return (
-        <aside className="property-panel">
-            <div className="p-3">
-                <div className="d-flex align-items-center justify-content-between mb-3">
-                    <h6 className="mb-0">
-                        اطلاعات ملک
-                    </h6>
-
-                    <button className="btn btn-sm btn-outline-secondary">
-                        ×
-                    </button>
+        <div className="property-panel">
+            <div className="property-panel-header">
+                <div>
+                    <span>اطلاعات ملک</span>
+                    <small>اطلاعات GIS عرصه</small>
                 </div>
 
-                <div className="mb-3">
-                    <div className="text-muted small">
-                        کد نوسازی
-                    </div>
-                    <div className="fw-semibold">
-                        -
-                    </div>
+                <button
+                    type="button"
+                    className="property-panel-close"
+                    aria-label="بستن"
+                >
+                    ×
+                </button>
+            </div>
+
+            <div className="property-panel-body">
+                <div className="property-item">
+                    <span>کد نوسازی</span>
+                    <strong>
+                        {attributes.Code_nosazi ?? '-'}
+                    </strong>
                 </div>
 
-                <div className="mb-3">
-                    <div className="text-muted small">
-                        کاربری
-                    </div>
-                    <div className="fw-semibold">
-                        -
-                    </div>
+                <div className="property-item">
+                    <span>کاربری</span>
+                    <strong>
+                        {attributes.karbari ?? '-'}
+                    </strong>
                 </div>
 
-                <div className="mb-3">
-                    <div className="text-muted small">
-                        مساحت
-                    </div>
-                    <div className="fw-semibold">
-                        -
-                    </div>
-                </div>
-
-                <hr />
-
-                <div className="fw-semibold mb-2">
-                    طرح تفصیلی
-                </div>
-
-                <div className="text-muted">
-                    اطلاعاتی انتخاب نشده است.
+                <div className="property-item">
+                    <span>قیمت پایه</span>
+                    <strong>
+                        {attributes.PriseBase ?? '-'}
+                    </strong>
                 </div>
             </div>
-        </aside>
+        </div>
     );
 }
 

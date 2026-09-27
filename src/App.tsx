@@ -7,6 +7,7 @@ import MapContainer from './components/Map/MapContainer';
 import PropertyPanel from './components/Property/PropertyPanel';
 
 import MapView from '@arcgis/core/views/MapView';
+import Graphic from '@arcgis/core/Graphic';
 
 // interface LayerVisibility {
 //     arse: boolean;
@@ -34,6 +35,7 @@ function App() {
 
     const [mapView, setMapView] = useState<MapView | null>(null);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+    const [selectedProperty, setSelectedProperty] = useState<Graphic | null>(null);
 
     const handleToggleSidebar = () => {
         setSidebarCollapsed((current) => !current);
@@ -59,10 +61,15 @@ function App() {
 
                 <main className="app-map">
                     {/* <MapContainer layerVisibility={layerVisibility} /> */}
-                    <MapContainer onViewReady={setMapView} />
+                    <MapContainer
+                        onViewReady={setMapView}
+                        onPropertySelected={setSelectedProperty}
+                    />
                 </main>
 
-                <PropertyPanel />
+                <PropertyPanel
+                    property={selectedProperty}
+                />
             </div>
 
             {/*<footer className="app-statusbar">
