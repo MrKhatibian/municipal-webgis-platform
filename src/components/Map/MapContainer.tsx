@@ -4,7 +4,7 @@ import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 //import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
-import Graphic from '@arcgis/core/Graphic'; 
+import Graphic from '@arcgis/core/Graphic';
 
 import { mapConfig } from '../../config/mapConfig';
 
@@ -13,6 +13,7 @@ import { mapConfig } from '../../config/mapConfig';
 //     gozarbandi: boolean,
 //     mahdodehShahr: boolean
 // }
+
 
 interface MapContainerProps {
     // layerVisibility: LayerVisibility;
@@ -25,8 +26,8 @@ export default function MapContainer({
     onViewReady, onPropertySelected
 }: MapContainerProps) {
     const mapDiv = useRef<HTMLDivElement>(null);
-
     const mapRef = useRef<Map | null>(null);
+
     // const arseFLayerRef = useRef<FeatureLayer | null>(null);
     // const gozarbandiFlayerRef = useRef<FeatureLayer | null>(null);
     // const mahdodehShahrFlayerRef = useRef<FeatureLayer | null>(null);
@@ -34,7 +35,10 @@ export default function MapContainer({
     useEffect(() => {
         if (!mapDiv.current) {
             return;
-        }        
+        }
+
+        let highlightHandle: { remove: () => void } | null = null;
+    
 
         // const arseML = new MapImageLayer({
         //     url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.arse}`,
@@ -104,9 +108,16 @@ export default function MapContainer({
                 );
                 if (!featureResult || !('graphic' in featureResult)) {
                     onPropertySelected(null);
+                    highlightHandle?.remove();
+                    highlightHandle = null
                     return
-                }                
-                onPropertySelected(featureResult.graphic);
+                }
+                const graphic = featureResult.graphic;
+                onPropertySelected(graphic);
+
+                const layerView = await view.whenLayerView(arseFL);
+                highlightHandle?.remove();
+                highlightHandle = layerView.highlight(graphic);
             } catch (err) {
                 console.error("Identify failed", err);
                 onPropertySelected(null);
@@ -128,13 +139,15 @@ export default function MapContainer({
         
         return () => {
             clickHandle.remove();
+            highlightHandle?.remove();
+            highlightHandle = null;
             view.destroy();
-            mapRef.current = null;
+            mapRef.current = null;    
             // arseFLayerRef.current = null;
             // gozarbandiFlayerRef.current = null;
             // mahdodehShahrFlayerRef.current = null;
         };
-    }, [onViewReady]);    
+    }, [onViewReady, onPropertySelected]);    
 
     // useEffect(() => {
     //     if (arseFLayerRef.current) {
@@ -148,6 +161,5 @@ export default function MapContainer({
     //     }
     // }, [layerVisibility]);
 
-    return <div ref={mapDiv} className="map-container" />;
-
+    return <div ref={mapDiv} className="map-container" />;  
 }
