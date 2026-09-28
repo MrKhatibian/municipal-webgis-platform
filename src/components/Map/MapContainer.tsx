@@ -53,17 +53,18 @@ export default function MapContainer({
         // });
 
         const arseFL = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.serviceId.arse}`,
+            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.arse.serviceId}`,
             title: "عرصه",
+            outFields: ["*"]
             //visible: layerVisibility.arse
         });
         const gozarbandiFL = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.serviceId.gozarbandi}`,
+            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.gozarbandi.serviceId}`,
             title: "گذر بندی",
             //visible: layerVisibility.gozarbandi
         });
         const mahdodehShahrFL = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.serviceId.mahdodehShahr}`,
+            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.mahdodehShahr.serviceId}`,
             title: "محدوده شهر",
             //visible: layerVisibility.mahdodehShahr
         });
