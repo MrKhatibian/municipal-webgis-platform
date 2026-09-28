@@ -1,23 +1,22 @@
 import Graphic from '@arcgis/core/Graphic';
-
+import { mapConfig } from '../../config/mapConfig';
 interface PropertyPanelProps{
     visible?: boolean;
     property: Graphic | null;
 }
 
 export default function PropertyPanel({
-    visible = false, property
+    //visible = false,
+    property
 }: PropertyPanelProps) {
-    if (!visible) {
-        return null;
-    }
-
+    // if (!visible) {
+    //     return null;
+    // }    
     if (!property) {
         return null;
     }
-    console.log(property.attributes);
     const attributes = property.attributes;
-
+   
     return (
         <div className="property-panel">
             <div className="property-panel-header">
@@ -39,21 +38,14 @@ export default function PropertyPanel({
                 <div className="property-item">
                     <span>کد نوسازی</span>
                     <strong>
-                        {attributes.Code_nosazi ?? '-'}
+                        {attributes[mapConfig.layers.arse.codeNosazi] ?? '-'}
                     </strong>
                 </div>
 
                 <div className="property-item">
                     <span>کاربری</span>
                     <strong>
-                        {attributes.karbari ?? '-'}
-                    </strong>
-                </div>
-
-                <div className="property-item">
-                    <span>قیمت پایه</span>
-                    <strong>
-                        {attributes.PriseBase ?? '-'}
+                        {attributes[mapConfig.layers.arse.karbari] ?? '-'}
                     </strong>
                 </div>
             </div>
