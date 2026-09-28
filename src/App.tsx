@@ -41,6 +41,10 @@ function App() {
         setSidebarCollapsed((current) => !current);
     }
 
+    const handleCloseProperty = () => {
+        setSelectedProperty(null);
+    }
+
     return (
         <MainLayout sidebarCollapsed={sidebarCollapsed}>
             <Header
@@ -69,6 +73,7 @@ function App() {
 
                 <PropertyPanel
                     property={selectedProperty}
+                    onClose={handleCloseProperty}
                 />
             </div>
 

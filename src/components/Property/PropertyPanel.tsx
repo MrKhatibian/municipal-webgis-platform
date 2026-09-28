@@ -3,11 +3,12 @@ import { mapConfig } from '../../config/mapConfig';
 interface PropertyPanelProps{
     visible?: boolean;
     property: Graphic | null;
+    onClose: () => void;
 }
 
 export default function PropertyPanel({
     //visible = false,
-    property
+    property, onClose
 }: PropertyPanelProps) {
     // if (!visible) {
     //     return null;
@@ -29,6 +30,7 @@ export default function PropertyPanel({
                     type="button"
                     className="property-panel-close"
                     aria-label="بستن"
+                    onClick={onClose}
                 >
                     ×
                 </button>
