@@ -42,7 +42,7 @@ function App() {
     }
 
     const handleCloseProperty = () => {
-        setSelectedProperty(null);
+        setSelectedProperty(null);        
     }
 
     return (
@@ -67,7 +67,8 @@ function App() {
                     {/* <MapContainer layerVisibility={layerVisibility} /> */}
                     <MapContainer
                         onViewReady={setMapView}
-                        onPropertySelected={setSelectedProperty}
+                        onPropertySelected={setSelectedProperty}                        
+                        selectedProperty={selectedProperty}
                     />
                 </main>
 

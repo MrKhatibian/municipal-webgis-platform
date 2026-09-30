@@ -19,26 +19,30 @@ interface MapContainerProps {
     // layerVisibility: LayerVisibility;
     onViewReady: (view: MapView) => void;
     onPropertySelected: (graphic: Graphic | null) => void;
+    selectedProperty: Graphic | null;
 }
 
 export default function MapContainer({
     //layerVisibility,
-    onViewReady, onPropertySelected
+    onViewReady, onPropertySelected, selectedProperty
 }: MapContainerProps) {
     const mapDiv = useRef<HTMLDivElement>(null);
     const mapRef = useRef<Map | null>(null);
+    const viewRef = useRef<MapView | null>(null);
 
-    // const arseFLayerRef = useRef<FeatureLayer | null>(null);
+
+    const arseFLayerRef1 = useRef<FeatureLayer | null>(null);
     // const gozarbandiFlayerRef = useRef<FeatureLayer | null>(null);
     // const mahdodehShahrFlayerRef = useRef<FeatureLayer | null>(null);
+    const highlightHandle = useRef<{ remove: () => void } | null>(null);
 
     useEffect(() => {
         if (!mapDiv.current) {
             return;
         }
 
-        let highlightHandle: { remove: () => void } | null = null;
-    
+        //let highlightHandle: { remove: () => void } | null = null;
+        
 
         // const arseML = new MapImageLayer({
         //     url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.arse}`,
@@ -95,11 +99,14 @@ export default function MapContainer({
             zoom: mapConfig.zoom,
         });
 
+        viewRef.current = view;
+        arseFLayerRef1.current = arseFL;
+
         onViewReady(view);
 
         view.popupEnabled = false;
         const clickHandle = view.on('click', async (event) => {
-            try {
+            try {                
                 const response = await view.hitTest((event), {
                     include: arseFL,
                 });
@@ -108,22 +115,21 @@ export default function MapContainer({
                 );
                 if (!featureResult || !('graphic' in featureResult)) {
                     onPropertySelected(null);
-                    highlightHandle?.remove();
-                    highlightHandle = null
+                    highlightHandle.current?.remove();
+                    highlightHandle.current = null
                     return
                 }
                 const graphic = featureResult.graphic;
                 onPropertySelected(graphic);
 
                 const layerView = await view.whenLayerView(arseFL);
-                highlightHandle?.remove();
-                highlightHandle = layerView.highlight(graphic);
+                highlightHandle.current?.remove();
+                highlightHandle.current = layerView.highlight(graphic);
             } catch (err) {
                 console.error("Identify failed", err);
                 onPropertySelected(null);
             }
         });
-
 
         const zoomToLayer = async () => {
             try {
@@ -135,12 +141,12 @@ export default function MapContainer({
                 console.error('Failed to zoom to parcel extent:', err);
             }
         }
-        zoomToLayer();
+        zoomToLayer();       
         
         return () => {
             clickHandle.remove();
-            highlightHandle?.remove();
-            highlightHandle = null;
+            highlightHandle.current?.remove();
+            highlightHandle.current = null;
             view.destroy();
             mapRef.current = null;    
             // arseFLayerRef.current = null;
@@ -148,6 +154,22 @@ export default function MapContainer({
             // mahdodehShahrFlayerRef.current = null;
         };
     }, [onViewReady, onPropertySelected]);    
+
+    useEffect(() => {        
+        const view = viewRef.current;
+        const arseFL = arseFLayerRef1;
+
+        if (!view, !arseFL) { return; }
+
+        if (!selectedProperty) {
+            highlightHandle.current?.remove();
+            highlightHandle.current = null;
+            return;
+        }
+
+        return () => {            
+        }
+    }, [selectedProperty]);
 
     // useEffect(() => {
     //     if (arseFLayerRef.current) {
