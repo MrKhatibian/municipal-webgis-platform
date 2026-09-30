@@ -31,7 +31,7 @@ export default function MapContainer({
     const viewRef = useRef<MapView | null>(null);
 
 
-    const arseFLayerRef1 = useRef<FeatureLayer | null>(null);
+    const arseFLayerRef = useRef<FeatureLayer | null>(null);
     // const gozarbandiFlayerRef = useRef<FeatureLayer | null>(null);
     // const mahdodehShahrFlayerRef = useRef<FeatureLayer | null>(null);
     const highlightHandle = useRef<{ remove: () => void } | null>(null);
@@ -100,7 +100,7 @@ export default function MapContainer({
         });
 
         viewRef.current = view;
-        arseFLayerRef1.current = arseFL;
+        arseFLayerRef.current = arseFL;
 
         onViewReady(view);
 
@@ -115,8 +115,8 @@ export default function MapContainer({
                 );
                 if (!featureResult || !('graphic' in featureResult)) {
                     onPropertySelected(null);
-                    highlightHandle.current?.remove();
-                    highlightHandle.current = null
+                    // highlightHandle.current?.remove();
+                    // highlightHandle.current = null
                     return
                 }
                 const graphic = featureResult.graphic;
@@ -155,20 +155,12 @@ export default function MapContainer({
         };
     }, [onViewReady, onPropertySelected]);    
 
-    useEffect(() => {        
-        const view = viewRef.current;
-        const arseFL = arseFLayerRef1;
-
-        if (!view, !arseFL) { return; }
-
+    useEffect(() => {               
         if (!selectedProperty) {
             highlightHandle.current?.remove();
             highlightHandle.current = null;
             return;
-        }
-
-        return () => {            
-        }
+        }        
     }, [selectedProperty]);
 
     // useEffect(() => {
