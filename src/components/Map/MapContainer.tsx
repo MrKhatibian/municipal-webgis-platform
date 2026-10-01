@@ -2,84 +2,50 @@ import { useEffect, useRef } from 'react';
 
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-//import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import Graphic from '@arcgis/core/Graphic';
 
+
 import { mapConfig } from '../../config/mapConfig';
 
-// interface LayerVisibility {
-//     arse: boolean,
-//     gozarbandi: boolean,
-//     mahdodehShahr: boolean
-// }
-
-
-interface MapContainerProps {
-    // layerVisibility: LayerVisibility;
+interface MapContainerProps {    
     onViewReady: (view: MapView) => void;
     onPropertySelected: (graphic: Graphic | null) => void;
     selectedProperty: Graphic | null;
 }
 
-export default function MapContainer({
-    //layerVisibility,
+export default function MapContainer({    
     onViewReady, onPropertySelected, selectedProperty
 }: MapContainerProps) {
     const mapDiv = useRef<HTMLDivElement>(null);
+
     const mapRef = useRef<Map | null>(null);
     const viewRef = useRef<MapView | null>(null);
-
-
     const arseFLayerRef = useRef<FeatureLayer | null>(null);
-    // const gozarbandiFlayerRef = useRef<FeatureLayer | null>(null);
-    // const mahdodehShahrFlayerRef = useRef<FeatureLayer | null>(null);
+    
     const highlightHandle = useRef<{ remove: () => void } | null>(null);
 
     useEffect(() => {
         if (!mapDiv.current) {
             return;
-        }
-
-        //let highlightHandle: { remove: () => void } | null = null;
-        
-
-        // const arseML = new MapImageLayer({
-        //     url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.arse}`,
-        //     title: "عرصه",
-        //     visible: layerVisibility.arse
-        // });
-        // const gozarbandiML = new MapImageLayer({
-        //     url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.gozarbandi}`,
-        //     title: "گذر بندی",
-        //     visible: layerVisibility.gozarbandi
-        // });
-        // const mahdodehShahrML = new MapImageLayer({
-        //     url: `${mapConfig.mapServerUrl}/${mapConfig.serviceId.mahdodehShahr}`,
-        //     title: "محدوده شهر",
-        //     visible: layerVisibility.mahdodehShahr
-        // });
+        }        
 
         const arseFL = new FeatureLayer({
             url: `${mapConfig.featureServerUrl}/${mapConfig.layers.arse.serviceId}`,
             title: "عرصه",
             outFields: ["*"]
-            //visible: layerVisibility.arse
         });
+        arseFLayerRef.current = arseFL;
+
         const gozarbandiFL = new FeatureLayer({
             url: `${mapConfig.featureServerUrl}/${mapConfig.layers.gozarbandi.serviceId}`,
-            title: "گذر بندی",
-            //visible: layerVisibility.gozarbandi
-        });
-        const mahdodehShahrFL = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.mahdodehShahr.serviceId}`,
-            title: "محدوده شهر",
-            //visible: layerVisibility.mahdodehShahr
+            title: "گذر بندی",            
         });
 
-        // arseFLayerRef.current = arseFL;
-        // gozarbandiFlayerRef.current = gozarbandiFL;
-        // mahdodehShahrFlayerRef.current = mahdodehShahrFL;
+        const mahdodehShahrFL = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.mahdodehShahr.serviceId}`,
+            title: "محدوده شهر",            
+        });
 
         const map = new Map({
             basemap: mapConfig.basemap,
@@ -88,8 +54,7 @@ export default function MapContainer({
                 arseFL,
                 gozarbandiFL
             ]
-        });
-        //map.addMany([arseFL, gozarbandiFL, mahdodehShahrFL]);
+        });        
         mapRef.current = map;
 
         const view = new MapView({
@@ -97,14 +62,14 @@ export default function MapContainer({
             map,
             center: mapConfig.center,
             zoom: mapConfig.zoom,
-        });
-
-        viewRef.current = view;
-        arseFLayerRef.current = arseFL;
+        });        
+        viewRef.current = view;        
 
         onViewReady(view);
 
         view.popupEnabled = false;
+
+        // Click Handle
         const clickHandle = view.on('click', async (event) => {
             try {                
                 const response = await view.hitTest((event), {
@@ -114,9 +79,7 @@ export default function MapContainer({
                     (result) => result.type === 'graphic'
                 );
                 if (!featureResult || !('graphic' in featureResult)) {
-                    onPropertySelected(null);
-                    // highlightHandle.current?.remove();
-                    // highlightHandle.current = null
+                    onPropertySelected(null);                    
                     return
                 }
                 const graphic = featureResult.graphic;
@@ -149,9 +112,6 @@ export default function MapContainer({
             highlightHandle.current = null;
             view.destroy();
             mapRef.current = null;    
-            // arseFLayerRef.current = null;
-            // gozarbandiFlayerRef.current = null;
-            // mahdodehShahrFlayerRef.current = null;
         };
     }, [onViewReady, onPropertySelected]);    
 
@@ -162,18 +122,6 @@ export default function MapContainer({
             return;
         }        
     }, [selectedProperty]);
-
-    // useEffect(() => {
-    //     if (arseFLayerRef.current) {
-    //         arseFLayerRef.current.visible = layerVisibility.arse;
-    //     }
-    //     if (gozarbandiFlayerRef.current) {
-    //         gozarbandiFlayerRef.current.visible = layerVisibility.gozarbandi;
-    //     }
-    //     if (mahdodehShahrFlayerRef.current) {
-    //         mahdodehShahrFlayerRef.current.visible = layerVisibility.mahdodehShahr;
-    //     }
-    // }, [layerVisibility]);
 
     return <div ref={mapDiv} className="map-container" />;  
 }
