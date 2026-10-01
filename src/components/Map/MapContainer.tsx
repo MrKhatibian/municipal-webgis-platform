@@ -117,15 +117,15 @@ export default function MapContainer({
                 zoom={mapConfig.zoom}
                 style={{ width: '100%', height: '100%', display: 'block' }}
             >
-                <arcgis-zoom slot="top-left" />
-                <arcgis-home ref={homeRef} slot="top-left" />
+                <arcgis-zoom slot="top-right" />
+                <arcgis-home ref={homeRef} slot="top-right" />
 
                 <arcgis-expand slot="top-right" expand-tooltip="لایه‌ها" mode="floating">
                     <arcgis-layer-list />
                 </arcgis-expand>
 
-                <arcgis-basemap-toggle slot="bottom-left" nextBasemap="satellite" />
-                <arcgis-scale-bar slot="bottom-right" unit="metric" />
+                <arcgis-basemap-toggle slot="bottom-right" nextBasemap="satellite" />
+                <arcgis-scale-bar slot="bottom-left" unit="metric" />
             </arcgis-map>
         </div>
     );
