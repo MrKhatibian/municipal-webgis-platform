@@ -56,12 +56,12 @@ function App() {
                 {/* <Sidebar
                     layerVisibility={layerVisibility}
                     onLayerVisibilityChange={handleLayerVisibilityChange}
-                /> */}
+                /> 
                 <Sidebar
                     mapView={mapView}
                     collapsed={sidebarCollapsed}
                     onToggleSidebar={handleToggleSidebar}
-                />
+                />*/}
 
                 <main className="app-map">
                     {/* <MapContainer layerVisibility={layerVisibility} /> */}

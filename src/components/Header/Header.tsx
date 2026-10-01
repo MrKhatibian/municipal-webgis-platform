@@ -9,7 +9,7 @@ export default function Header({
     return (
         <header className="app-header">
             <div className="app-brand">
-                <button
+                {/* <button
                     type="button"
                     className="mobile-sidebar-toggle"
                     onClick={onToggleSidebar}
@@ -17,7 +17,7 @@ export default function Header({
                     aria-label={sidebarCollapsed ? 'باز کردن منو' : 'بستن منو'}
                 >
                     <span>{sidebarCollapsed ? "»" : "«"}</span>
-                </button>
+                </button> */}
 
                 <div className="municipality-logo">
                     <svg viewBox="0 0 48 48" aria-hidden="true">
