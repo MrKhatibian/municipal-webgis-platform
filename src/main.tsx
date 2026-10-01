@@ -2,6 +2,12 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import '@arcgis/core/assets/esri/themes/light/main.css';
+import '@arcgis/map-components/components/arcgis-map';
+import '@arcgis/map-components/components/arcgis-zoom';
+import '@arcgis/map-components/components/arcgis-home';
+import '@arcgis/map-components/components/arcgis-basemap-toggle';
+import '@arcgis/map-components/components/arcgis-scale-bar';
+import '@arcgis/map-components/components/arcgis-expand';
 import '@arcgis/map-components/components/arcgis-layer-list';
 
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
