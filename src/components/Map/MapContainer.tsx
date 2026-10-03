@@ -27,24 +27,33 @@ export default function MapContainer({
 
         let disposed = false;
         let clickHandle: { remove: () => void } | null = null;
-
+        
+        const arseConfig = mapConfig.layers.arse;
         const arseFL = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.arse.serviceId}`,
-            title: 'عرصه',
-            outFields: ['*'],
+            url: `${mapConfig.featureServerUrl}/${arseConfig.serviceId}`,
+            title: `${arseConfig.title}`,
+            minScale: arseConfig.minScale,
+            outFields: [
+                `${arseConfig.fields.codeNosazi}`,
+                `${arseConfig.fields.karbari}`,
+            ],
         });
-        const gozarbandiFL = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.gozarbandi.serviceId}`,
-            title: 'گذر بندی',
+        
+        const mabarConfig = mapConfig.layers.mabar;
+        const mabarFL = new FeatureLayer({
+            url: `${mapConfig.featureServerUrl}/${mabarConfig.serviceId}`,
+            title: `${mabarConfig.title}`,
         });
+        
+        const mahdodehShahrConfig = mapConfig.layers.mahdodehShahr;
         const mahdodehShahrFL = new FeatureLayer({
-            url: `${mapConfig.featureServerUrl}/${mapConfig.layers.mahdodehShahr.serviceId}`,
-            title: 'محدوده شهر',
+            url: `${mapConfig.featureServerUrl}/${mahdodehShahrConfig.serviceId}`,
+            title: `${mahdodehShahrConfig.title}`,
         });
 
         mapEl.map = new Map({
             basemap: mapConfig.basemap,
-            layers: [mahdodehShahrFL, arseFL, gozarbandiFL],
+            layers: [mahdodehShahrFL, mabarFL, arseFL],
         });
 
         const init = async () => {
