@@ -359,6 +359,40 @@ arcgis-map {
     }
 
 /* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 4px 12px;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface-alt);
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--color-muted);
+}
+
+.app-footer-divider {
+    width: 1px;
+    height: 10px;
+    background: #cbd5e1;
+}
+
+.app-footer a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+}
+
+    .app-footer a:hover {
+        color: #0f766e;        
+    }
+
+/* ==========================================================================
    Mobile (≤ 768px)
    ========================================================================== */
 @media (max-width: 768px) {
@@ -396,6 +430,9 @@ arcgis-map {
     .property-panel {
         width: calc(100% - 80px);
     }
+
+    .app-footer-divider {
+        display: none;
 }
 .esri-attribution {
     display: none !important;
