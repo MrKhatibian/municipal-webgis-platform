@@ -1,6 +1,22 @@
+import Basemap from '@arcgis/core/Basemap';
+import ImageryLayer from '@arcgis/core/layers/ImageryLayer';
+import satellighteThumbnail from '../assets/images/SatelliteImage.png'
+const basemap = new Basemap({
+    title: "StatellightImage",
+    id: "customSatellite",
+    thumbnailUrl: satellighteThumbnail,
+    baseLayers: [
+        new ImageryLayer({
+            url: "http://yourServer:6080/arcgis/rest/services/yourService/ImageServer",
+        }),
+    ],
+})
 
 export const mapConfig = {
-    basemap: 'osm',
+    basemap: {
+        online: 'osm',
+        local: basemap
+    },
     center: [46.17, 37.39] as [number, number],
     zoom: 13,
     spatialReference: 32638,

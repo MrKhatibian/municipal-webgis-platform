@@ -52,7 +52,7 @@ export default function MapContainer({
         });
 
         mapEl.map = new Map({
-            basemap: mapConfig.basemap,
+            basemap: mapConfig.basemap.online,
             layers: [mahdodehShahrFL, mabarFL, arseFL],
         });
 
@@ -145,7 +145,7 @@ export default function MapContainer({
                 </arcgis-expand>
                 
 
-                <arcgis-basemap-toggle slot="bottom-right" nextBasemap="satellite" />
+                <arcgis-basemap-toggle slot="bottom-right" nextBasemap={mapConfig.basemap.local} />
                 <arcgis-scale-bar slot="bottom-left" unit="metric" />
             </arcgis-map>
         </div>
