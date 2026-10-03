@@ -9,6 +9,7 @@ import '@arcgis/map-components/components/arcgis-basemap-toggle';
 import '@arcgis/map-components/components/arcgis-scale-bar';
 import '@arcgis/map-components/components/arcgis-expand';
 import '@arcgis/map-components/components/arcgis-layer-list';
+import '@arcgis/map-components/components/arcgis-legend';
 
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 

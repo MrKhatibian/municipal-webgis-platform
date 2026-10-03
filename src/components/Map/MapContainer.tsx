@@ -140,6 +140,10 @@ export default function MapContainer({
                 <arcgis-expand slot="top-right" expand-tooltip="لایه‌ها" mode="floating">
                     <arcgis-layer-list />
                 </arcgis-expand>
+                <arcgis-expand slot="top-right" expand-tooltip="راهنما" mode="floating">
+                    <arcgis-legend/>
+                </arcgis-expand>
+                
 
                 <arcgis-basemap-toggle slot="bottom-right" nextBasemap="satellite" />
                 <arcgis-scale-bar slot="bottom-left" unit="metric" />
