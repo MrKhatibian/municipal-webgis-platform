@@ -63,6 +63,11 @@ export default function MapContainer({
 
             const view = mapEl.view as MapView;
             view.popupEnabled = false;
+            view.constraints = {
+                rotationEnabled: false,
+                minZoom: 12,
+                maxZoom: 22,
+            }
 
             onViewReady(view);
 
@@ -89,13 +94,16 @@ export default function MapContainer({
             try {
                 await mahdodehShahrFL.when();
                 if (mahdodehShahrFL.fullExtent) {
-                    await view.goTo(mahdodehShahrFL.fullExtent);
+                    await view.goTo(mahdodehShahrFL.fullExtent);                     
                     // Home Extent
                     if (homeRef.current) {
                         homeRef.current.viewpoint = new Viewpoint({
                             targetGeometry: mahdodehShahrFL.fullExtent,
                         });
                     }
+
+                    // Lock View Extent to Mahdodeh Shahr
+                    view.constraints.geometry = mahdodehShahrFL.fullExtent;
                 }
             } catch (err) {
                 console.error('Failed to zoom to extent:', err);
