@@ -17,6 +17,7 @@ export default function PropertyPanel({
         return null;
     }
     const attributes = property.attributes;
+    const arseConfig = mapConfig.layers.arse;
    
     return (
         <div className="property-panel">
@@ -38,16 +39,16 @@ export default function PropertyPanel({
 
             <div className="property-panel-body">
                 <div className="property-item">
-                    <span>کد نوسازی</span>
+                    <span>{arseConfig.fields.codeNosazi.title}</span>
                     <strong>
-                        {attributes[mapConfig.layers.arse.codeNosazi] ?? '-'}
+                        {attributes[arseConfig.fields.codeNosazi.name] ?? '-'}
                     </strong>
                 </div>
 
                 <div className="property-item">
-                    <span>کاربری</span>
+                    <span>{arseConfig.fields.karbari.title}</span>
                     <strong>
-                        {attributes[mapConfig.layers.arse.karbari] ?? '-'}
+                        {attributes[arseConfig.fields.karbari.name] ?? '-'}
                     </strong>
                 </div>
             </div>

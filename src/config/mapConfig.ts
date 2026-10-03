@@ -13,9 +13,15 @@ export const mapConfig = {
             title: 'عرصه',
             minScale: 5000,
             fields: {
-            codeNosazi: "Code_nosazi",
-            karbari: "KarbariM",
-            }            
+                codeNosazi: {
+                    name: "Code_nosazi",
+                    title: "کد نوسازی",
+                },
+                karbari: {
+                    name: "KarbariM",
+                    title: "کاربری",
+                },
+            },
         },
         mabar: {
             serviceId: 2,

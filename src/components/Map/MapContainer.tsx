@@ -34,8 +34,8 @@ export default function MapContainer({
             title: `${arseConfig.title}`,
             minScale: arseConfig.minScale,
             outFields: [
-                `${arseConfig.fields.codeNosazi}`,
-                `${arseConfig.fields.karbari}`,
+                `${arseConfig.fields.codeNosazi.name}`,
+                `${arseConfig.fields.karbari.name}`,
             ],
         });
         
@@ -79,7 +79,7 @@ export default function MapContainer({
                         onPropertySelected(null);
                         return;
                     }
-                    const graphic = featureResult.graphic;
+                    const graphic = featureResult.graphic;                    
                     onPropertySelected(graphic);
 
                     const layerView = await view.whenLayerView(arseFL);
