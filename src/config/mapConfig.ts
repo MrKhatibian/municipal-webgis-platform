@@ -10,14 +10,20 @@ export const mapConfig = {
     layers: {
         arse: {
             serviceId: 1,
+            title: 'عرصه',
+            minScale: 5000,
+            fields: {
             codeNosazi: "Code_nosazi",
             karbari: "KarbariM",
+            }            
         },
-        gozarbandi: {
-            serviceId:2,
+        mabar: {
+            serviceId: 2,
+            title: 'معبر',
         },
         mahdodehShahr: {
             serviceId: 5,
+            title: 'محدوده شهر',
         }
     }
 }
