@@ -30,7 +30,7 @@ export default function MainLayout({
             </main>
 
             <footer className="app-footer">
-                <span>© ۲۰۲۶ تمامی حقوق محفوظ است</span>
+                <span>© ۲۰۲۶ تمامی حقوق معنوی برای شهرداری مراغه محفوظ می باشد.</span>
                 <span className="app-footer-divider" aria-hidden="true" />
                 <span>
                     طراحی و توسعه:{' '}
