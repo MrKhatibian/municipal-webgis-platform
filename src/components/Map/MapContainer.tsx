@@ -68,11 +68,11 @@ export default function MapContainer({
                 minZoom: 12,
                 maxZoom: 22,
             }
-
+            
             onViewReady(view);
 
             clickHandle = view.on('click', async (event) => {
-                try {
+                try {                    
                     const response = await view.hitTest(event, { include: arseFL });
                     const featureResult = response.results.find((r) => r.type === 'graphic');
                     if (!featureResult || !('graphic' in featureResult)) {
@@ -81,7 +81,7 @@ export default function MapContainer({
                     }
                     const graphic = featureResult.graphic;                    
                     onPropertySelected(graphic);
-
+                    
                     const layerView = await view.whenLayerView(arseFL);
                     highlightHandle.current?.remove();
                     highlightHandle.current = layerView.highlight(graphic);
@@ -94,7 +94,7 @@ export default function MapContainer({
             try {
                 await mahdodehShahrFL.when();
                 if (mahdodehShahrFL.fullExtent) {
-                    await view.goTo(mahdodehShahrFL.fullExtent);                     
+                    await view.goTo(mahdodehShahrFL.fullExtent);
                     // Home Extent
                     if (homeRef.current) {
                         homeRef.current.viewpoint = new Viewpoint({
@@ -102,11 +102,12 @@ export default function MapContainer({
                         });
                     }
 
-                    // Lock View Extent to Mahdodeh Shahr
+                    // Lock View Extent to Mahdodeh Shahr                    
                     view.constraints.geometry = mahdodehShahrFL.fullExtent;
                 }
             } catch (err) {
                 console.error('Failed to zoom to extent:', err);
+                view.constraints.geometry = view.extent;
             }
         };
         init();
