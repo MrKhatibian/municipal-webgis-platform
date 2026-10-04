@@ -1,6 +1,7 @@
 import Basemap from '@arcgis/core/Basemap';
 import ImageryLayer from '@arcgis/core/layers/ImageryLayer';
-import satellighteThumbnail from '../assets/images/SatelliteImage.png'
+import satellighteThumbnail from '../assets/images/SatelliteImage.png';
+
 const basemap = new Basemap({
     title: "StatellightImage",
     id: "customSatellite",
