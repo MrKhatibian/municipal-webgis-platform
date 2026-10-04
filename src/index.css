@@ -256,7 +256,7 @@ arcgis-layer-list {
     position: absolute;
     top: var(--header-height);
     /*right: var(--sidebar-width);*/
-    right:0;
+    right: 0;
     bottom: 0;
     left: 0;
     display: block;
@@ -323,6 +323,9 @@ arcgis-map {
     color: var(--color-muted);
     font-size: 22px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
     .property-panel-close:hover {
@@ -428,12 +431,18 @@ arcgis-map {
     }
 
     .property-panel {
-        width: calc(100% - 80px);
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 20px);
+        max-width: 400px;
+        max-height: calc(100vh - 40px);
+        max-height: calc(100dvh - 40px);
+        overflow-y: auto;
     }
 
     .app-footer-divider {
         display: none;
 }
-.esri-attribution {
-    display: none !important;
 }
