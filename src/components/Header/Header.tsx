@@ -1,3 +1,4 @@
+import logoShahrdari from '../../assets/images/LogoShahrdari.png';
 
 interface HeaderProps {
     sidebarCollapsed: boolean;
@@ -18,13 +19,16 @@ export default function Header({
                 >
                     <span>{sidebarCollapsed ? "»" : "«"}</span>
                 </button> */}
-
-                <div className="municipality-logo">
-                    <svg viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M24 4 5 17v27h38V17L24 4Zm0 5 13 9H11l13-9Zm-8 14h5v15h-5V23Zm11 0h5v15h-5V23Z" />
-                    </svg>
-                    {/* <img src="/logo.png" alt="شهرداری مراغه" /> */}
-                </div>
+               
+                <a
+                    className="municipality-logo"
+                    href="https://maragheh.ir/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="وب‌سایت شهرداری مراغه"
+                >
+                    <img src={logoShahrdari} alt="شهرداری مراغه" />
+                </a>
                 <div className="app-brand-text">
                     <strong>شهرداری مراغه</strong>
                     <span>سامانه اطلاعات مکانی شهری</span>

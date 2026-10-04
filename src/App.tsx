@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import MainLayout from './app/layout/MainLayout';
 import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar';
+//import Sidebar from './components/Sidebar/Sidebar';
 import MapContainer from './components/Map/MapContainer';
 import PropertyPanel from './components/Property/PropertyPanel';
 
