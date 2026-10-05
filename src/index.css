@@ -90,15 +90,24 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
     border-radius: 12px;
-    background: var(--color-primary);
-    color: #ffffff;
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+    .municipality-logo:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
 
-    .municipality-logo svg {
-        width: 28px;
-        height: 28px;
-        fill: currentColor;
+    .municipality-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
     }
 
 .app-brand-text {
@@ -260,16 +269,11 @@ arcgis-layer-list {
     bottom: 0;
     left: 0;
     display: block;
-    outline: none;
     transition: right 0.25s ease;
 }
 
 .sidebar-collapsed .map-container {
     right: var(--sidebar-collapsed-width);
-}
-
-arcgis-map {
-    outline: none;
 }
 
 /* ==========================================================================
