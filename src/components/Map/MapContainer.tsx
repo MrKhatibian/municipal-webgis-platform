@@ -76,7 +76,7 @@ export default function MapContainer({
                 onViewReady(view);
 
                 clickHandle = view.on('click', async (event) => {
-                    try {                       
+                    try {                                 
                         const response = await view.hitTest(event, { include: arseFL });
                         const featureResult = response.results.find((r) => r.type === 'graphic');
                         if (!featureResult || !('graphic' in featureResult)) {
@@ -88,11 +88,11 @@ export default function MapContainer({
 
                         const layerView = await view.whenLayerView(arseFL);
                         highlightHandle.current?.remove();
-                        highlightHandle.current = layerView.highlight(graphic);
+                        highlightHandle.current = layerView.highlight(graphic);                        
                     } catch (err) {
                         onPropertySelected(null);
                         console.warn('Identify failed', err);
-                        notify.warning('اطلاعات ملک مورد نظر در دسترس نیست.');
+                        notify.warning('اطلاعات ملک مورد نظر در دسترس نیست.');                        
                     }
                 });
 
@@ -156,7 +156,14 @@ export default function MapContainer({
                 </arcgis-expand>
                 
 
-                <arcgis-basemap-toggle slot="bottom-right" nextBasemap={mapConfig.basemap.local} />
+                <arcgis-basemap-toggle
+                    slot="bottom-right"
+                    nextBasemap={mapConfig.basemap.local}
+                    style={{
+                        transform: 'scale(0.65)',
+                        transformOrigin: 'bottom right',
+                    }}
+                />
                 <arcgis-scale-bar slot="bottom-left" unit="metric" />
             </arcgis-map>
         </div>
