@@ -1,6 +1,7 @@
 import {
     createContext,
     useCallback,
+    useEffect,
     useState,
     type ReactNode,
 } from 'react';
@@ -11,6 +12,8 @@ import type {
 } from '../../types/notification';
 
 interface NotificationContextValue {
+    notifications: Notification[];
+
     notify: (
         type: NotificationType,
         message: string,
@@ -39,7 +42,9 @@ export function NotificationProvider({
 
     const removeNotification = useCallback((id: number) => {
         setNotifications((current) =>
-            current.filter((notification) => notification.id !== id)
+            current.filter(
+                (notification) => notification.id !== id
+            )
         );
     }, []);
 
@@ -49,26 +54,61 @@ export function NotificationProvider({
             message: string,
             duration = 4000
         ) => {
-            const id = Date.now() + Math.random();
+            setNotifications((current) => {
+                const existing = current.find(
+                    (notification) =>
+                        notification.type === type &&
+                        notification.message === message
+                );
 
-            setNotifications((current) => [
-                ...current,
-                {
+                if (existing) {
+                    return current.map((notification) =>
+                        notification.id === existing.id
+                            ? {
+                                ...notification,
+                                count: notification.count + 1,
+                            }
+                            : notification
+                    );
+                }
+
+                const id = Date.now() + Math.random();
+
+                const newNotification: Notification = {
                     id,
                     type,
                     message,
                     duration,
-                },
-            ]);
+                    count: 1,
+                };
 
-            if (duration > 0) {
-                window.setTimeout(() => {
-                    removeNotification(id);
-                }, duration);
-            }
+                return [...current, newNotification].slice(-5);
+            });
         },
-        [removeNotification]
+        []
     );
+
+    useEffect(() => {
+        if (notifications.length === 0) return;
+
+        const timers = notifications
+            .filter(
+                (notification) =>
+                    notification.duration &&
+                    notification.duration > 0
+            )
+            .map((notification) =>
+                window.setTimeout(() => {
+                    removeNotification(notification.id);
+                }, notification.duration)
+            );
+
+        return () => {
+            timers.forEach((timer) => {
+                window.clearTimeout(timer);
+            });
+        };
+    }, [notifications, removeNotification]);
 
     const success = useCallback(
         (message: string, duration?: number) =>
@@ -97,6 +137,7 @@ export function NotificationProvider({
     return (
         <NotificationContext.Provider
             value={{
+                notifications,
                 notify,
                 removeNotification,
                 success,

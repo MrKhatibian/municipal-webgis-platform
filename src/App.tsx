@@ -9,6 +9,9 @@ import PropertyPanel from './components/Property/PropertyPanel';
 import MapView from '@arcgis/core/views/MapView';
 import Graphic from '@arcgis/core/Graphic';
 
+import ToastContainer from './components/Notification/ToastContainer';
+import { useNotification } from './hooks/useNotification';
+
 // interface LayerVisibility {
 //     arse: boolean;
 //     gozarbandi: boolean;
@@ -37,6 +40,8 @@ function App() {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     const [selectedProperty, setSelectedProperty] = useState<Graphic | null>(null);
 
+    const notify = useNotification();    
+
     const handleToggleSidebar = () => {
         setSidebarCollapsed((current) => !current);
     }
@@ -46,44 +51,47 @@ function App() {
     }
 
     return (
-        <MainLayout sidebarCollapsed={sidebarCollapsed}>
-            <Header
-                sidebarCollapsed={sidebarCollapsed}
-                onToggleSidebar={handleToggleSidebar}
-            />
+        <>
+            <MainLayout sidebarCollapsed={sidebarCollapsed}>
+                <Header
+                    sidebarCollapsed={sidebarCollapsed}
+                    onToggleSidebar={handleToggleSidebar}
+                />
 
-            <div className="app-content">
-                {/* <Sidebar
+                <div className="app-content">
+                    {/* <Sidebar
                     layerVisibility={layerVisibility}
                     onLayerVisibilityChange={handleLayerVisibilityChange}
-                /> 
-                <Sidebar
-                    mapView={mapView}
-                    collapsed={sidebarCollapsed}
-                    onToggleSidebar={handleToggleSidebar}
-                />*/}
+                    /> 
+                    <Sidebar
+                        mapView={mapView}
+                        collapsed={sidebarCollapsed}
+                        onToggleSidebar={handleToggleSidebar}
+                    />*/}
 
-                <main className="app-map">
-                    {/* <MapContainer layerVisibility={layerVisibility} /> */}
-                    <MapContainer
-                        onViewReady={setMapView}
-                        onPropertySelected={setSelectedProperty}                        
-                        selectedProperty={selectedProperty}
+                    <main className="app-map">
+                        {/* <MapContainer layerVisibility={layerVisibility} /> */}
+                        <MapContainer
+                            onViewReady={setMapView}
+                            onPropertySelected={setSelectedProperty}
+                            selectedProperty={selectedProperty}
+                        />
+                    </main>
+
+                    <PropertyPanel
+                        property={selectedProperty}
+                        onClose={handleCloseProperty}
                     />
-                </main>
+                </div>
 
-                <PropertyPanel
-                    property={selectedProperty}
-                    onClose={handleCloseProperty}
-                />
-            </div>
-
-            {/*<footer className="app-statusbar">
+                {/*<footer className="app-statusbar">
                 <span>مختصات: ---</span>
                 <span>مقیاس: ---</span>
                 <span>وضعیت: آماده</span>
             </footer>*/}
-        </MainLayout>                            
+            </MainLayout>
+            <ToastContainer />
+        </>                
     );
 }
 

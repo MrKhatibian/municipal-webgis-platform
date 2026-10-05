@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useNotification } from '../../hooks/useNotification';
 
 import Map from '@arcgis/core/Map';
 import type MapView from '@arcgis/core/views/MapView';
@@ -17,6 +18,8 @@ interface MapContainerProps {
 export default function MapContainer({
     onViewReady, onPropertySelected, selectedProperty
 }: MapContainerProps) {
+    const notify = useNotification();
+
     const mapElRef = useRef<HTMLArcgisMapElement>(null);
     const homeRef = useRef<HTMLArcgisHomeElement>(null);
     const highlightHandle = useRef<{ remove: () => void } | null>(null);
@@ -57,58 +60,65 @@ export default function MapContainer({
         });
 
         const init = async () => {
-            await mapEl.componentOnReady();
-            await mapEl.viewOnReady();
-            if (disposed) return;
-
-            const view = mapEl.view as MapView;
-            view.popupEnabled = false;
-            view.constraints = {
-                rotationEnabled: false,
-                minZoom: 12,
-                maxZoom: 22,
-            }
-            
-            onViewReady(view);
-
-            clickHandle = view.on('click', async (event) => {
-                try {                    
-                    const response = await view.hitTest(event, { include: arseFL });
-                    const featureResult = response.results.find((r) => r.type === 'graphic');
-                    if (!featureResult || !('graphic' in featureResult)) {
-                        onPropertySelected(null);
-                        return;
-                    }
-                    const graphic = featureResult.graphic;                    
-                    onPropertySelected(graphic);
-                    
-                    const layerView = await view.whenLayerView(arseFL);
-                    highlightHandle.current?.remove();
-                    highlightHandle.current = layerView.highlight(graphic);
-                } catch (err) {
-                    console.error('Identify failed', err);
-                    onPropertySelected(null);
-                }
-            });
-
             try {
-                await mahdodehShahrFL.when();
-                if (mahdodehShahrFL.fullExtent) {
-                    await view.goTo(mahdodehShahrFL.fullExtent);
-                    // Home Extent
-                    if (homeRef.current) {
-                        homeRef.current.viewpoint = new Viewpoint({
-                            targetGeometry: mahdodehShahrFL.fullExtent,
-                        });
-                    }
+                await mapEl.componentOnReady();
+                await mapEl.viewOnReady();
+                if (disposed) return;
 
-                    // Lock View Extent to Mahdodeh Shahr                    
-                    view.constraints.geometry = mahdodehShahrFL.fullExtent;
+                const view = mapEl.view as MapView;
+                view.popupEnabled = false;
+                view.constraints = {
+                    rotationEnabled: false,
+                    minZoom: 12,
+                    maxZoom: 22,
+                }
+
+                onViewReady(view);
+
+                clickHandle = view.on('click', async (event) => {
+                    try {                       
+                        const response = await view.hitTest(event, { include: arseFL });
+                        const featureResult = response.results.find((r) => r.type === 'graphic');
+                        if (!featureResult || !('graphic' in featureResult)) {
+                            onPropertySelected(null);
+                            return;
+                        }
+                        const graphic = featureResult.graphic;
+                        onPropertySelected(graphic);
+
+                        const layerView = await view.whenLayerView(arseFL);
+                        highlightHandle.current?.remove();
+                        highlightHandle.current = layerView.highlight(graphic);
+                    } catch (err) {
+                        onPropertySelected(null);
+                        console.warn('Identify failed', err);
+                        notify.warning('اطلاعات ملک مورد نظر در دسترس نیست.');
+                    }
+                });
+
+                try {
+                    await mahdodehShahrFL.when();                   
+                    if (mahdodehShahrFL.fullExtent) {
+                        await view.goTo(mahdodehShahrFL.fullExtent);
+                        // Home Extent
+                        if (homeRef.current) {
+                            homeRef.current.viewpoint = new Viewpoint({
+                                targetGeometry: mahdodehShahrFL.fullExtent,
+                            });
+                        }
+
+                        // Lock View Extent to Mahdodeh Shahr                    
+                        view.constraints.geometry = mahdodehShahrFL.fullExtent;
+                    }
+                } catch (err) {
+                    view.constraints.geometry = view.extent;
+                    console.warn('Failed to zoom to extent:', err);
+                    notify.warning('محدوده شهر بارگذاری شد، اما امکان رفتن به محدوده اولیه وجود ندارد.');
                 }
             } catch (err) {
-                console.error('Failed to zoom to extent:', err);
-                view.constraints.geometry = view.extent;
-            }
+                console.error('Map initialization failed:', err);
+                notify.error('خطا در بارگذاری نقشه. لطفاً اتصال به سرویس نقشه را بررسی کنید.');
+            }            
         };
         init();
 

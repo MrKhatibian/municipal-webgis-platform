@@ -46,12 +46,13 @@ export default function ToastContainer() {
 
     return (
         <div
-            className="toast-container position-fixed bottom-0 start-0 p-3"
+            className="toast-container position-fixed top-0 start-0 p-3"
             style={{ zIndex: 2000 }}
             aria-live="polite"
             aria-atomic="true"
         >
-            {notifications.map((notification) => (
+            {/* {notifications.map((notification) => ( */}
+            {notifications.slice(-4).map((notification) => (
                 <div
                     key={notification.id}
                     className={`toast show ${getToastClass(
@@ -78,6 +79,12 @@ export default function ToastContainer() {
 
                     <div className="toast-body">
                         {notification.message}
+
+                        {notification.count > 1 && (
+                            <span className="ms-2 badge bg-secondary">
+                                × {notification.count}
+                            </span>
+                        )}
                     </div>
                 </div>
             ))}
