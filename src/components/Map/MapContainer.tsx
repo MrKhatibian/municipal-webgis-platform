@@ -149,10 +149,10 @@ export default function MapContainer({
                 <arcgis-home ref={homeRef} slot="top-right" />
 
                 <arcgis-expand slot="top-right" expand-tooltip="لایه‌ها" mode="floating">
-                    <arcgis-layer-list />
+                    <arcgis-layer-list style={{ width: '100%' }} />
                 </arcgis-expand>
                 <arcgis-expand slot="top-right" expand-tooltip="راهنما" mode="floating">
-                    <arcgis-legend/>
+                    <arcgis-legend style={{ width: '100%' }} />
                 </arcgis-expand>
                 
 
