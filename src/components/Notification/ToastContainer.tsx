@@ -1,93 +1,53 @@
 import { useNotification } from '../../hooks/useNotification';
 
+const TOAST_META: Record<string, { title: string; icon: string }> = {
+    success: { title: 'موفق', icon: '✓' },
+    error: { title: 'خطا', icon: '!' },
+    warning: { title: 'هشدار', icon: '!' },
+    info: { title: 'اطلاع', icon: 'i' },
+};
+
 export default function ToastContainer() {
-    const {
-        notifications,
-        removeNotification,
-    } = useNotification();
-
-    const getToastClass = (type: string) => {
-        switch (type) {
-            case 'success':
-                return 'text-bg-success';
-
-            case 'error':
-                return 'text-bg-danger';
-
-            case 'warning':
-                return 'text-bg-warning';
-
-            case 'info':
-                return 'text-bg-info';
-
-            default:
-                return 'text-bg-secondary';
-        }
-    };
-
-    const getTitle = (type: string) => {
-        switch (type) {
-            case 'success':
-                return 'موفق';
-
-            case 'error':
-                return 'خطا';
-
-            case 'warning':
-                return 'هشدار';
-
-            case 'info':
-                return 'اطلاع';
-
-            default:
-                return '';
-        }
-    };
+    const { notifications, removeNotification } = useNotification();
 
     return (
-        <div
-            className="toast-container position-fixed top-0 start-0 p-3"
-            style={{ zIndex: 2000 }}
-            aria-live="polite"
-            aria-atomic="true"
-        >
-            {/* {notifications.map((notification) => ( */}
-            {notifications.slice(-4).map((notification) => (
-                <div
-                    key={notification.id}
-                    className={`toast show ${getToastClass(
-                        notification.type
-                    )}`}
-                    role="alert"
-                    aria-live="assertive"
-                    aria-atomic="true"
-                >
-                    <div className="toast-header">
-                        <strong className="me-auto">
-                            {getTitle(notification.type)}
-                        </strong>
+        <div className="app-toast-container" aria-live="polite" aria-atomic="true">
+            {notifications.slice(-4).map((notification) => {
+                const meta = TOAST_META[notification.type];
+
+                return (
+                    <div
+                        key={notification.id}
+                        className={`app-toast app-toast--${notification.type}`}
+                        role="alert"
+                    >
+                        <span className="app-toast-icon" aria-hidden="true">
+                            {meta?.icon}
+                        </span>
+
+                        <div className="app-toast-content">
+                            <strong>{meta?.title}</strong>
+                            <span>
+                                {notification.message}
+                                {notification.count > 1 && (
+                                    <em className="app-toast-count">
+                                        {notification.count}
+                                    </em>
+                                )}
+                            </span>
+                        </div>
 
                         <button
                             type="button"
-                            className="btn-close"
+                            className="app-toast-close"
                             aria-label="بستن"
-                            onClick={() =>
-                                removeNotification(notification.id)
-                            }
-                        />
+                            onClick={() => removeNotification(notification.id)}
+                        >
+                            ×
+                        </button>
                     </div>
-
-                    <div className="toast-body">
-                        {notification.message}
-
-                        {notification.count > 1 && (
-                            <span className="ms-2 badge bg-secondary">
-                                × {notification.count}
-                            </span>
-                        )}
-                    </div>
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 }

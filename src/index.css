@@ -366,6 +366,148 @@ arcgis-layer-list {
     }
 
 /* ==========================================================================
+   Toast
+   ========================================================================== */
+.app-toast-container {
+    position: fixed;
+    bottom: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: calc(100% - 32px);
+    max-width: 420px;
+    pointer-events: none; 
+}
+
+.app-toast {
+    --toast-color: #64748b;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
+    color: #1e293b;
+    pointer-events: auto;
+    animation: toast-in 0.25s ease-out;
+}
+
+    /* Sidebar Border */
+    .app-toast::before {
+        content: '';
+        position: absolute;
+        inset-block: 0;
+        inset-inline-start: 0;
+        width: 4px;
+        background: var(--toast-color);
+    }
+
+.app-toast--success {
+    --toast-color: #16a34a;
+}
+
+.app-toast--error {
+    --toast-color: #dc2626;
+}
+
+.app-toast--warning {
+    --toast-color: #f59e0b;
+}
+
+.app-toast--info {
+    --toast-color: #0ea5e9;
+}
+
+.app-toast-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin-inline-start: 4px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--toast-color) 15%, white);
+    color: var(--toast-color);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.app-toast-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+    .app-toast-content strong {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--toast-color);
+    }
+
+    .app-toast-content span {
+        font-size: 13px;
+        line-height: 1.5;
+        color: #334155;
+    }
+
+.app-toast-count {
+    display: inline-block;
+    margin-inline-start: 6px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.app-toast-close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+    .app-toast-close:hover {
+        background: #f1f5f9;
+        color: #334155;
+    }
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================================================
    Footer
    ========================================================================== */
 .app-footer {
@@ -448,5 +590,5 @@ arcgis-layer-list {
 
     .app-footer-divider {
         display: none;
-}
+    }
 }
