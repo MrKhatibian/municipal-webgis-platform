@@ -2,18 +2,24 @@ import Basemap from '@arcgis/core/Basemap';
 import ImageryLayer from '@arcgis/core/layers/ImageryLayer';
 import satellighteThumbnail from '../assets/images/SatelliteImage.png';
 
+const arcgisBaseUrl = import.meta.env.VITE_ARCGIS_BASE_URL;
+const baseMapUrl = import.meta.env.VITE_ARCGIS_IMAGERYLAYER_URL;
+const mapServerUrl = import.meta.env.VITE_ARCGIS_MAPSERVER_URL;
+const featureServerUrl = import.meta.env.VITE_ARCGIS_FEATURESERVER_URL;
+
 const basemap = new Basemap({
     title: "StatellightImage",
     id: "customSatellite",
     thumbnailUrl: satellighteThumbnail,
     baseLayers: [
         new ImageryLayer({
-            url: "http://yourServer:6080/arcgis/rest/services/yourService/ImageServer",
+            //url: `${arcgisBaseUrl}/rest/services/Maragheh/Google2025/ImageServer`,
+            url: baseMapUrl,
         }),
     ],
-})
+});
 
-export const mapConfig = {
+export const mapConfig = {    
     basemap: {
         online: 'osm',
         local: basemap
@@ -21,14 +27,18 @@ export const mapConfig = {
     center: [46.24, 37.38] as [number, number], // X,Y
     //center: [5149039.17, 4493258.86] as [number, number], // X,Y
     zoom: 12,
-    spatialReference: 4326, // UTM N38
+    spatialReference: 4326, // WGS84
     //spatialReference: 32638, // UTM N38
 
-    mapServerUrl: "http://yourServer:6080/arcgis/rest/services/yourService/MapServer",    
-    featureServerUrl: "http://yourServer:6080/arcgis/rest/services/yourService/FeatureServer",
+    //mapServerUrl: `${arcgisBaseUrl}/rest/services/Maragheh/Maraghe_14050406/MapServer`,
+    mapServerUrl: mapServerUrl,
+
+    //featureServerUrl: `${arcgisBaseUrl}/rest/services/Maragheh/Maraghe_14050406/FeatureServer`,
+    featureServerUrl: featureServerUrl,
+
     layers: {
         arse: {
-            serviceId: 1,
+            serviceId: 1,            
             title: 'عرصه',
             minScale: 5000,
             fields: {
