@@ -6,11 +6,10 @@ import Header from './components/Header/Header';
 import MapContainer from './components/Map/MapContainer';
 import PropertyPanel from './components/Property/PropertyPanel';
 
-import MapView from '@arcgis/core/views/MapView';
+//import MapView from '@arcgis/core/views/MapView';
 import Graphic from '@arcgis/core/Graphic';
 
 import ToastContainer from './components/Notification/ToastContainer';
-import { useNotification } from './hooks/useNotification';
 
 // interface LayerVisibility {
 //     arse: boolean;
@@ -36,27 +35,27 @@ function App() {
     //     }));
     // };
 
-    const [mapView, setMapView] = useState<MapView | null>(null);
-    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-    const [selectedProperty, setSelectedProperty] = useState<Graphic | null>(null);
+    //const [mapView, setMapView] = useState<MapView | null>(null);
 
-    const notify = useNotification();    
+    //const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+    // const handleToggleSidebar = () => {
+    //     setSidebarCollapsed((current) => !current);
+    // }
 
-    const handleToggleSidebar = () => {
-        setSidebarCollapsed((current) => !current);
-    }
-
+    const [selectedProperty, setSelectedProperty] = useState<Graphic | null>(null);     
     const handleCloseProperty = () => {
         setSelectedProperty(null);        
     }
 
     return (
         <>
-            <MainLayout sidebarCollapsed={sidebarCollapsed}>
-                <Header
+            {/* <MainLayout sidebarCollapsed={sidebarCollapsed}> */}
+            <MainLayout >
+                {/* <Header
                     sidebarCollapsed={sidebarCollapsed}
                     onToggleSidebar={handleToggleSidebar}
-                />
+                /> */}
+                <Header />
 
                 <div className="app-content">
                     {/* <Sidebar
@@ -69,10 +68,13 @@ function App() {
                         onToggleSidebar={handleToggleSidebar}
                     />*/}
 
-                    <main className="app-map">
-                        {/* <MapContainer layerVisibility={layerVisibility} /> */}
-                        <MapContainer
+                    <main className="app-map">                        
+                        {/* <MapContainer
                             onViewReady={setMapView}
+                            onPropertySelected={setSelectedProperty}
+                            selectedProperty={selectedProperty}
+                        /> */}
+                        <MapContainer                            
                             onPropertySelected={setSelectedProperty}
                             selectedProperty={selectedProperty}
                         />

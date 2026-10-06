@@ -10,13 +10,14 @@ import Viewpoint from '@arcgis/core/Viewpoint';
 import { mapConfig } from '../../config/mapConfig';
 
 interface MapContainerProps {
-    onViewReady: (view: MapView) => void;
+    //onViewReady: (view: MapView) => void;
     onPropertySelected: (graphic: Graphic | null) => void;
     selectedProperty: Graphic | null;
 }
 
 export default function MapContainer({
-    onViewReady, onPropertySelected, selectedProperty
+    //onViewReady,
+    onPropertySelected, selectedProperty
 }: MapContainerProps) {
     const notify = useNotification();
 
@@ -73,7 +74,7 @@ export default function MapContainer({
                     maxZoom: 22,
                 }
 
-                onViewReady(view);
+                //onViewReady(view);
 
                 clickHandle = view.on('click', async (event) => {
                     try {                                 
@@ -128,7 +129,7 @@ export default function MapContainer({
             highlightHandle.current?.remove();
             highlightHandle.current = null;
         };
-    }, [onViewReady, onPropertySelected]);
+    }, [onPropertySelected]);
 
     useEffect(() => {
         if (!selectedProperty) {

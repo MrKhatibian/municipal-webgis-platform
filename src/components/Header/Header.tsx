@@ -1,12 +1,13 @@
 import logoShahrdari from '../../assets/images/LogoShahrdari.png';
 
-interface HeaderProps {
-    sidebarCollapsed: boolean;
-    onToggleSidebar: () => void;
-}
-export default function Header({
-    sidebarCollapsed, onToggleSidebar
-}: HeaderProps) {
+// interface HeaderProps {
+//     sidebarCollapsed: boolean;
+//     onToggleSidebar: () => void;
+// }
+// export default function Header({
+//     sidebarCollapsed, onToggleSidebar
+// }: HeaderProps) {
+export default function Header() {
     return (
         <header className="app-header">
             <div className="app-brand">

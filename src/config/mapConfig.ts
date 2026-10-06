@@ -2,7 +2,7 @@ import Basemap from '@arcgis/core/Basemap';
 import ImageryLayer from '@arcgis/core/layers/ImageryLayer';
 import satellighteThumbnail from '../assets/images/SatelliteImage.png';
 
-const arcgisBaseUrl = import.meta.env.VITE_ARCGIS_BASE_URL;
+//const arcgisBaseUrl = import.meta.env.VITE_ARCGIS_BASE_URL;
 const baseMapUrl = import.meta.env.VITE_ARCGIS_IMAGERYLAYER_URL;
 const mapServerUrl = import.meta.env.VITE_ARCGIS_MAPSERVER_URL;
 const featureServerUrl = import.meta.env.VITE_ARCGIS_FEATURESERVER_URL;
