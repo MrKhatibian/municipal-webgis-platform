@@ -9,14 +9,12 @@ import Viewpoint from '@arcgis/core/Viewpoint';
 
 import { mapConfig } from '../../config/mapConfig';
 
-interface MapContainerProps {
-    //onViewReady: (view: MapView) => void;
+interface MapContainerProps {    
     onPropertySelected: (graphic: Graphic | null) => void;
     selectedProperty: Graphic | null;
 }
 
 export default function MapContainer({
-    //onViewReady,
     onPropertySelected, selectedProperty
 }: MapContainerProps) {
     const notify = useNotification();
@@ -72,9 +70,7 @@ export default function MapContainer({
                     rotationEnabled: false,
                     minZoom: 12,
                     maxZoom: 22,
-                }
-
-                //onViewReady(view);
+                }                
 
                 clickHandle = view.on('click', async (event) => {
                     try {                                 

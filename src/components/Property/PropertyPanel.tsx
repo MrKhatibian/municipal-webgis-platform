@@ -6,13 +6,9 @@ interface PropertyPanelProps{
     onClose: () => void;
 }
 
-export default function PropertyPanel({
-    //visible = false,
+export default function PropertyPanel({    
     property, onClose
-}: PropertyPanelProps) {
-    // if (!visible) {
-    //     return null;
-    // }    
+}: PropertyPanelProps) {    
     if (!property) {
         return null;
     }

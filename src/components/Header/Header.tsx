@@ -1,26 +1,9 @@
 import logoShahrdari from '../../assets/images/LogoShahrdari.png';
 
-// interface HeaderProps {
-//     sidebarCollapsed: boolean;
-//     onToggleSidebar: () => void;
-// }
-// export default function Header({
-//     sidebarCollapsed, onToggleSidebar
-// }: HeaderProps) {
 export default function Header() {
     return (
         <header className="app-header">
-            <div className="app-brand">
-                {/* <button
-                    type="button"
-                    className="mobile-sidebar-toggle"
-                    onClick={onToggleSidebar}
-                    title={sidebarCollapsed ? 'باز کردن منو' : 'بستن منو'}
-                    aria-label={sidebarCollapsed ? 'باز کردن منو' : 'بستن منو'}
-                >
-                    <span>{sidebarCollapsed ? "»" : "«"}</span>
-                </button> */}
-               
+            <div className="app-brand">                
                 <a
                     className="municipality-logo"
                     href="https://maragheh.ir/"

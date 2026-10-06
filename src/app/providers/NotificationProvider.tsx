@@ -28,8 +28,7 @@ interface NotificationContextValue {
     info: (message: string, duration?: number) => void;
 }
 
-export const NotificationContext =
-    createContext<NotificationContextValue | null>(null);
+export const NotificationContext = createContext<NotificationContextValue | null>(null);
 
 interface NotificationProviderProps {
     children: ReactNode;
