@@ -1,6 +1,6 @@
 import Basemap from '@arcgis/core/Basemap';
 import ImageryLayer from '@arcgis/core/layers/ImageryLayer';
-import satellighteThumbnail from '../assets/images/SatelliteImage.png';
+import satellighteThumbnail from '../assets/images/satelliteImage.png';
 
 const baseMapUrl = import.meta.env.VITE_ARCGIS_IMAGERYLAYER_URL;
 const mapServerUrl = import.meta.env.VITE_ARCGIS_MAPSERVER_URL;

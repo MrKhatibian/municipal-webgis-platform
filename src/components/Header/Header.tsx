@@ -1,4 +1,4 @@
-import logoShahrdari from '../../assets/images/LogoShahrdari.png';
+import shahrdariLogo from '../../assets/images/shahrdariLogo.png';
 
 export default function Header() {
     return (
@@ -11,7 +11,7 @@ export default function Header() {
                     rel="noopener noreferrer"
                     aria-label="وب‌سایت شهرداری مراغه"
                 >
-                    <img src={logoShahrdari} alt="شهرداری مراغه" />
+                    <img src={shahrdariLogo} alt="شهرداری مراغه" />
                 </a>
                 <div className="app-brand-text">
                     <strong>شهرداری مراغه</strong>
