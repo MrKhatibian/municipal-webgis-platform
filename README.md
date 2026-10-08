@@ -9,7 +9,7 @@ The project provides a reusable foundation for municipal GIS applications, focus
 
 ## Demo
 
-![Municipal WebGIS Demo](docs/screenshots/demo.mp4)
+![Municipal WebGIS Demo](docs/screenshots/demo.gif)
 
 ## Screenshots
 
