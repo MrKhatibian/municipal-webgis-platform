@@ -40,3 +40,4 @@ obj/
 .env.*.local
 /.env.development
 /.env.production
+/dist_v0.1.0
