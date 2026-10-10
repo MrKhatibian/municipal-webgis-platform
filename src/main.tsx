@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import esriConfig from '@arcgis/core/config';
+esriConfig.fontsUrl = '/fonts';
+
 import '@arcgis/core/assets/esri/themes/light/main.css';
 import '@arcgis/map-components/components/arcgis-map';
 import '@arcgis/map-components/components/arcgis-zoom';
