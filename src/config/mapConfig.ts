@@ -52,7 +52,7 @@ export const mapConfig = {
             title: 'معبر',
         },
         mahdodehShahr: {
-            serviceId: 5,
+            serviceId: 4,
             title: 'محدوده شهر',
         }
     }
