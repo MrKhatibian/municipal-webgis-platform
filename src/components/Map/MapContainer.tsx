@@ -66,11 +66,23 @@ export default function MapContainer({
 
                 const view = mapEl.view as MapView;
                 view.popupEnabled = false;
+
+                // Goto to first Center
+                await view.goTo({
+                    center: mapConfig.center,
+                    zoom: mapConfig.zoom,
+                });
+                if (disposed) return;
+
+                const initialExtent = view.extent?.clone();
                 view.constraints = {
                     rotationEnabled: false,
                     minZoom: 12,
                     maxZoom: 22,
-                }                
+                    ...(initialExtent
+                        ? { geometry: initialExtent }
+                        : {}),
+                };               
 
                 clickHandle = view.on('click', async (event) => {
                     try {                                 
@@ -108,7 +120,10 @@ export default function MapContainer({
                         view.constraints.geometry = mahdodehShahrFL.fullExtent;
                     }
                 } catch (err) {
-                    view.constraints.geometry = view.extent;
+                    if (initialExtent) {
+                        view.constraints.geometry = initialExtent;
+                    }
+
                     console.warn('Failed to zoom to extent:', err);
                     notify.warning('محدوده شهر بارگذاری شد، اما امکان رفتن به محدوده اولیه وجود ندارد.');
                 }
