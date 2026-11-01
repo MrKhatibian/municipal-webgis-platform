@@ -160,10 +160,10 @@ export default function MapContainer({
                 <arcgis-zoom slot="top-right" />
                 <arcgis-home ref={homeRef} slot="top-right" />
 
-                <arcgis-expand slot="top-right" expand-tooltip="لایه‌ها" mode="floating">
+                <arcgis-expand slot="top-right" expand-tooltip="لایه‌ها" mode="floating" group="top-right">
                     <arcgis-layer-list style={{ width: '100%' }} />
                 </arcgis-expand>
-                <arcgis-expand slot="top-right" expand-tooltip="راهنما" mode="floating">
+                <arcgis-expand slot="top-right" expand-tooltip="راهنما" mode="floating" group="top-right">
                     <arcgis-legend style={{ width: '100%' }} />
                 </arcgis-expand>
                 
